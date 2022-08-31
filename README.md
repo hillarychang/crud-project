@@ -8,4 +8,5 @@ coding dojo final project
 3. Install PyMySQL: pipenv install PyMySQL flask
 4. Bcrypt: pipenv install flask-bcrypt
 5. Activate virtual environment: pipenv shell
+
 -run with python server.py
