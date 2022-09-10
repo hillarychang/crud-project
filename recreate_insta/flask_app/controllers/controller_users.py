@@ -164,29 +164,25 @@ def showUser():
     
     posts = Post.get_all()
     data = {"id":session['user_id']} # need user's id
+    user = User.get_user_with_followings(data) #when user has no post becomes False
+    following_list =[]
+    if (user != False):
+        following_list = user.following_id_list
+
     user = User.get_user_with_posts(data) #returns a user with a list of posts
-    user = User.get_user_with_followings(data)
 
-    if (user ==False):
-        num=0
-
-    # for i in user.following:
-    #     print("SONGSATLIFEGUARD",i.id)
-
-    # print("OKISTHISIT",posts)
 
     for post in posts:
         num = Post.getNumLikesforPost(post.id)
         post.numLike = num
         comment_with_post = Post.get_post_with_comments({"id":post.id}) #should update comments for each post
-        # print("BETTerOFF",comment_with_post[0]['comment'])
         if (comment_with_post[0]['comment'] != None):
             post.comment = comment_with_post
 
-    # print("COMMENTWITHPOST",)
-    # print("BETTerOFF",comment_with_post[0]['comment'])
 
-    return render_template("result.html", comment_post = comment_with_post, all_posts = posts, users = user, numm = num) 
+    print("KDJSGFGS",following_list)
+
+    return render_template("result.html", all_posts = posts, users = user, list_id = following_list) 
 
 
 @app.route("/") #runs starting form
